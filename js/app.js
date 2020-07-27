@@ -30,6 +30,9 @@ fetch(casesDataURL)
     .then(data => {
         const countries = data.Countries;
         const dropdown = document.querySelector('#country-dropdown');
+        const todayCasesEle = document.querySelector('.today-cases > span');
+        const todayDeathsEle = document.querySelector('.today-deaths > span');
+        const todayRecoveredEle = document.querySelector('.today-recovered > span');
 
         // Creating dropdown elements
         const sortedData = [...countries].sort((a, b) => {
@@ -48,6 +51,12 @@ fetch(casesDataURL)
                 }
             });
 
-            casesEle.textContent = match[0].TotalConfirmed.toLocaleString();
+            const data = match[0];
+            casesEle.textContent = data.TotalConfirmed.toLocaleString();
+            todayCasesEle.textContent = data.NewConfirmed;
+            todayDeathsEle.textContent = data.NewDeaths;
+            todayRecoveredEle.textContent = data.NewRecovered;
+
+            console.log(data)
         });
     });
